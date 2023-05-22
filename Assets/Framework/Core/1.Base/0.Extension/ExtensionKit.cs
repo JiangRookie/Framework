@@ -33,6 +33,12 @@ namespace Framework
             selfObj.transform.SetParent(parentGameObj == null ? null : parentGameObj.transform);
             return selfObj;
         }
+
+        public static GameObject Parent(this GameObject selfObj, Transform parentTransform)
+        {
+            selfObj.transform.SetParent(parentTransform == null ? null : parentTransform.transform);
+            return selfObj;
+        }
     }
 
     public static class TransformExtension

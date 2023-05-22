@@ -13,3 +13,13 @@ public class Cube : MonoBehaviour
         PoolManager.Instance.Recycle(gameObject);
     }
 }
+
+public class ObjectPoolExample
+{
+    public void Init() => Debug.Log("我产生了");
+
+    public void Recycle()
+    {
+        PoolManager.Instance.Recycle(this);
+    }
+}
