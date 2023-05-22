@@ -48,7 +48,7 @@ namespace Framework
     }
 
     /// <summary>
-    /// 持久化 MonoBehaviour类的单例
+    /// 持久化 MonoBehaviour 类的单例
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class PersistentMonoSingleton<T> : MonoSingleton<T> where T : PersistentMonoSingleton<T>

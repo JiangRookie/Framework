@@ -2,27 +2,30 @@ using Framework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class NormalSingletonExample : Singleton<NormalSingletonExample>
+namespace Example
 {
-    public string Text = "NormalSingletonExample";
-}
-
-public class MonoSingletonExample : MonoSingleton<MonoSingletonExample> // 需要挂载到GameObject上才可以生效
-{
-    public string Text = "MonoSingletonExample";
-}
-
-public class SingletonExample : MonoBehaviour
-{
-    [Button("NormalSingletonExample")]
-    void GetNormalSingletonExample()
+    public class NormalSingletonExample : Singleton<NormalSingletonExample>
     {
-        Debug.Log(NormalSingletonExample.Instance.Text);
+        public string Text = "NormalSingletonExample";
     }
 
-    [Button("MonoSingletonExample")]
-    void GetMonoSingletonExample()
+    public class MonoSingletonExample : MonoSingleton<MonoSingletonExample> // 需要挂载到GameObject上才可以生效
     {
-        Debug.Log(MonoSingletonExample.Instance.Text);
+        public string Text = "MonoSingletonExample";
+    }
+
+    public class SingletonExample : MonoBehaviour
+    {
+        [Button("NormalSingletonExample")]
+        void GetNormalSingletonExample()
+        {
+            Debug.Log(NormalSingletonExample.Instance.Text);
+        }
+
+        [Button("MonoSingletonExample")]
+        void GetMonoSingletonExample()
+        {
+            Debug.Log(MonoSingletonExample.Instance.Text);
+        }
     }
 }

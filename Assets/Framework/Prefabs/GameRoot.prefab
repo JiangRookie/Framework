@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 796054740657520125}
   - component: {fileID: 796054740657520126}
   - component: {fileID: 1881147465900721903}
+  - component: {fileID: 872291836}
   m_Layer: 0
   m_Name: GameRoot
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d1b860f3b534b45a6ef83d95efe79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_FrameworkSetting: {fileID: 11400000, guid: 42b0a9aed9eb0df4eac0d696e194d5ad, type: 2}
 --- !u!114 &1881147465900721903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +61,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PoolRootNode: {fileID: 8960615399223037555}
+--- !u!114 &872291836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796054740657520124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab595aa51b397e4f96fb88bec78fadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ConfigSetting: {fileID: 11400000, guid: 5123887b7bdf4004bb50c3bcc5706d6b, type: 2}
 --- !u!1 &8960615399223037555
 GameObject:
   m_ObjectHideFlags: 0

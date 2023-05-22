@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -80,9 +81,13 @@ namespace Framework
 
         #endregion
 
+        #region Field
+
         [SerializeField] GameObject m_PoolRootNode; // 对象池的根节点
         public Dictionary<string, GameObjectPoolData> GameObjectPoolDict = new Dictionary<string, GameObjectPoolData>();
         public Dictionary<string, ObjectPoolData> ObjectPoolDict = new Dictionary<string, ObjectPoolData>();
+
+        #endregion
 
         #region GameObject
 
@@ -159,7 +164,7 @@ namespace Framework
         public void Recycle(object obj)
         {
             string typeName = obj.GetType().FullName;
-            if (ObjectPoolDict.TryGetValue(typeName, out var subPool))
+            if (typeName != null && ObjectPoolDict.TryGetValue(typeName, out var subPool))
             {
                 subPool.Recycle(obj);
             }
@@ -199,7 +204,93 @@ namespace Framework
 
         #endregion
 
-        public void ClearGameObjPool() => GameObjectPoolDict.Clear();
-        public void ClearObjPool() => ObjectPoolDict.Clear();
+        #region Clear
+
+        /// <summary>
+        /// 清理操作，可选择清理游戏对象和/或对象
+        /// </summary>
+        /// <param name="clearGameObjects">是否清理游戏对象</param>
+        /// <param name="clearObjects">是否清理对象</param>
+        public void Clear(bool clearGameObjects = true, bool clearObjects = true)
+        {
+            if (clearGameObjects)
+            {
+                for (int i = m_PoolRootNode.transform.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(m_PoolRootNode.transform.GetChild(i).gameObject);
+                }
+                GameObjectPoolDict.Clear();
+            }
+            if (clearObjects)
+            {
+                ObjectPoolDict.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 清理游戏对象
+        /// </summary>
+        public void ClearGameObjects()
+        {
+            Clear(clearGameObjects: true, clearObjects: false);
+        }
+
+        /// <summary>
+        /// 根据预制件名称清理游戏对象
+        /// </summary>
+        /// <param name="prefabName">预制件名称</param>
+        public void ClearGameObject(string prefabName)
+        {
+            Transform trans = m_PoolRootNode.transform.Find(prefabName);
+            if (trans != null)
+            {
+                Destroy(trans.gameObject);
+                GameObjectPoolDict.Remove(prefabName);
+            }
+        }
+
+        /// <summary>
+        /// 根据预制件清理游戏对象
+        /// </summary>
+        /// <param name="prefab">预制件</param>
+        public void ClearGameObject(GameObject prefab)
+        {
+            ClearGameObject(prefab.name);
+        }
+
+        /// <summary>
+        /// 清理对象
+        /// </summary>
+        public void ClearObjects()
+        {
+            Clear(clearGameObjects: false, clearObjects: true);
+        }
+
+        /// <summary>
+        /// 根据泛型类型清理对象
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        public void ClearObjects<T>()
+        {
+            string typeName = typeof(T).FullName;
+            if (typeName != null)
+            {
+                ObjectPoolDict.Remove(typeName);
+            }
+        }
+
+        /// <summary>
+        /// 根据类型清理对象
+        /// </summary>
+        /// <param name="type">类型</param>
+        public void ClearObjects(Type type)
+        {
+            if (type.FullName != null)
+            {
+                ObjectPoolDict.Remove(type.FullName);
+            }
+        }
+
+        #endregion
     }
 }

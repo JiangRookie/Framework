@@ -1,8 +1,12 @@
 using Framework;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class GameRoot : PersistentMonoSingleton<GameRoot>
 {
+    [SerializeField] FrameworkSetting m_FrameworkSetting;
+    public FrameworkSetting FrameworkSetting => m_FrameworkSetting;
+
     protected override void Awake()
     {
         base.Awake();

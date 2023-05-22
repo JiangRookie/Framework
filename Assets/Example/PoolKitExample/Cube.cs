@@ -1,25 +1,28 @@
 using Framework;
 using UnityEngine;
 
-public class Cube : MonoBehaviour
+namespace Example
 {
-    void OnEnable()
+    public class Cube : MonoBehaviour
     {
-        Invoke(nameof(Destroy), 3f);
+        void OnEnable()
+        {
+            Invoke(nameof(Destroy), 3f);
+        }
+
+        void Destroy()
+        {
+            PoolManager.Instance.Recycle(gameObject);
+        }
     }
 
-    void Destroy()
+    public class ObjectPoolExample
     {
-        PoolManager.Instance.Recycle(gameObject);
-    }
-}
+        public void Init() => Debug.Log("我产生了");
 
-public class ObjectPoolExample
-{
-    public void Init() => Debug.Log("我产生了");
-
-    public void Recycle()
-    {
-        PoolManager.Instance.Recycle(this);
+        public void Recycle()
+        {
+            PoolManager.Instance.Recycle(this);
+        }
     }
 }
