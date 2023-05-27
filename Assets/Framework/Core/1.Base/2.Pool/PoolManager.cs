@@ -292,5 +292,26 @@ namespace Framework
         }
 
         #endregion
+
+        /// <summary>
+        /// 检查缓存并加载游戏对象
+        /// </summary>
+        /// <param name="path">预制体的资源路径</param>
+        /// <param name="parent">父对象的Transform</param>
+        /// <returns>加载的游戏对象，如果缓存中存在则返回缓存中的对象，否则返回null</returns>
+        public GameObject CheckCacheAndLoadGameObj(string path, Transform parent)
+        {
+            string[] pathSplit = path.Split('/');
+            string prefabName = pathSplit[^1];
+
+            // 检查缓存中是否存在指定预制体对象并且对象池中有可用的对象
+            if (GameObjectPoolDict.ContainsKey(prefabName) && GameObjectPoolDict[prefabName].QueuePool.Count > 0)
+            {
+                return GameObjectPoolDict[prefabName].Get(parent); // 从对象池中获取游戏对象，并设置父对象
+            }
+
+            // 从对象池中获取游戏对象，并设置父对象
+            return null;
+        }
     }
 }
